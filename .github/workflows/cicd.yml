@@ -1,0 +1,83 @@
+name: 'Terraform GCP Project Deployment'
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'configs/**.yaml'
+
+jobs:
+  deploy-gcp-project:
+    name: 'Deploy GCP Project'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - name: 'Checkout Code'
+        uses: actions/checkout@v4
+
+      - name: 'Set up Python'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 'Install Python Dependencies'
+        run: pip install pyyaml
+
+      - name: 'Set up Terraform'
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: '1.5.0'
+
+      - name: 'Authenticate to Google Cloud'
+        id: 'auth'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          workload_identity_provider: '${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}'
+          service_account: '${{ secrets.GCP_SERVICE_ACCOUNT }}'
+
+      - name: 'Find Modified YAML File'
+        id: find_yaml
+        run: |
+          YAML_FILE=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | grep 'configs/.*\.yaml' | head -n 1)
+          echo "Found modified file: $YAML_FILE"
+          echo "yaml_file=$YAML_FILE" >> $GITHUB_OUTPUT
+
+      - name: 'Run Deploy Script'
+        id: deploy
+        run: python3 scripts/deploy.py ${{ steps.find_yaml.outputs.yaml_file }}
+
+      # --- SLACK NOTIFICATIONS ---
+
+      - name: 'Slack Notification on Success'
+        if: success()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_TITLE: 'GCP Project Provisioned Successfully!'
+          SLACK_MESSAGE: |
+            A new GCP project was created from `${{ steps.find_yaml.outputs.yaml_file }}`.
+            Triggered by: ${{ github.actor }}
+            Commit: ${{ github.sha }}
+            See the action run here: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          SLACK_COLOR: 'good'
+
+      - name: 'Slack Notification on Failure ❌'
+        if: failure()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_TITLE: 'FAILURE: GCP Project Provisioning Failed'
+          SLACK_MESSAGE: |
+            The GCP deployment pipeline FAILED.
+            Configuration File: `${{ steps.find_yaml.outputs.yaml_file }}`
+            Triggered by: ${{ github.actor }}
+            Review the action run logs immediately: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          SLACK_COLOR: 'danger'
+
+
+
+

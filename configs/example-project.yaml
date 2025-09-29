@@ -1,0 +1,26 @@
+project_id: "marwankonecta2"
+billing_account: "01E268-50118A-D3D35C"
+region: "europe-west3"
+
+labels:
+  owner: "intern-team"
+  environment: "development"
+  cost-center: "it-research"
+
+apis:
+  - "compute.googleapis.com"
+  - "iam.googleapis.com"
+  - "sqladmin.googleapis.com"
+  - "storage.googleapis.com"
+  - "run.googleapis.com"
+  - "secretmanager.googleapis.com"
+  - "monitoring.googleapis.com"
+  - "logging.googleapis.com"
+  - "iap.googleapis.com"
+
+# Email address for the IAP consent screen. Must be an admin of the project.
+iap_support_email: "malakmelkerdawy@gmail.com"
+# Email address to receive alerts from Cloud Monitoring.
+alert_email: "abdulrhmanahmed19@yahoo.com"
+
+
