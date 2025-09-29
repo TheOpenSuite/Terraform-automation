@@ -65,7 +65,7 @@ jobs:
             See the action run here: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           SLACK_COLOR: 'good'
 
-      - name: 'Slack Notification on Failure ❌'
+      - name: 'Slack Notification on Failure'
         if: failure()
         uses: rtCamp/action-slack-notify@v2
         env:

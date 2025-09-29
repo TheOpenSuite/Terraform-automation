@@ -9,7 +9,7 @@ terraform {
 
 provider "google" {
   project = var.project_id
-  credentials = file("/media/linfut/Secondary/Courses/DevOps/Related Stuff/Intern/Hands-on/Task 2/marwankonecta2-44d13da4480b.json")
+  # credentials = file("/media/linfut/Secondary/Courses/DevOps/Related Stuff/Intern/Hands-on/Task 2/marwankonecta2-44d13da4480b.json")
   region      = var.region
   scopes      = ["https://www.googleapis.com/auth/cloud-platform"]
 }
