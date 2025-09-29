@@ -1,9 +1,0 @@
-If project already made and need to connect to its name:
-terraform import module.project_factory.google_project.project marwankonecta2
-
-Creds:
-export GOOGLE_APPLICATION_CREDENTIALS="/media/linfut/Secondary/Courses/DevOps/Related Stuff/Intern/Hands-on/Task 2/marwankonecta2-44d13da4480b.json"
-
-source venv/bin/activate
-python3 scripts/deploy.py configs/example-project.yaml
-python3 scripts/destroy.py configs/example-project.yaml

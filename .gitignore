@@ -32,5 +32,7 @@ Thumbs.db
 
 # Other ignored files
 scripts/deploy
-connect
+Connect
 marwankonecta2-44d13da4480b.json
+.gitignore
+
