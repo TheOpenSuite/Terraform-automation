@@ -23,7 +23,7 @@ variable "apis" {
 variable "region" {
   description = "The primary GCP region for resources."
   type        = string
-  default     = "us-central1"
+  default     = "eu-west3"
 }
 
 variable "iap_support_email" {

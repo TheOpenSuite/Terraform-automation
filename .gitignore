@@ -1,0 +1,36 @@
+# Terraform-specific files
+.terraform.lock.hcl
+.terraform/
+*/.terraform/
+*.tfstate
+.tfstate.
+crash.log
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Python-specific files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.env
+
+# Custom Module Files
+modules/logging-sinks/
+
+# Generic OS files
+.DS_Store
+Thumbs.db
+
+# Other ignored files
+scripts/deploy
+connect
+marwankonecta2-44d13da4480b.json

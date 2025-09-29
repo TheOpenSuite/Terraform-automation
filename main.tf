@@ -100,11 +100,4 @@ module "monitoring_alarms" {
   depends_on  = [module.project_factory]
 }
 
-module "logging_sinks" {
-  source                     = "./modules/logging-sinks"
-  # FIX 1: Corrected project_factory output reference
-  project_id                 = module.project_factory.project_id
-  log_destination_project_id = var.project_id # For simplicity, sending logs to the same project.
-  depends_on                 = [module.project_factory]
-}
 
