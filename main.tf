@@ -107,3 +107,4 @@ module "logging_sinks" {
   log_destination_project_id = var.project_id # For simplicity, sending logs to the same project.
   depends_on                 = [module.project_factory]
 }
+
