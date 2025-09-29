@@ -64,15 +64,11 @@ def main():
     print("\n--- Running terraform init ---")
     run_command(["terraform", "init"])
 
-    # 4. Run Terraform Apply *only* for the sink resource to create writer_identity
-    print("\n--- Applying sink resource first to generate writer_identity ---")
-    run_command(["terraform", "apply", "-target=module.logging_sinks.google_logging_project_sink.sink", "-auto-approve"])
-
-    # 5. Run Terraform Plan and save to file (now writer_identity is known)
+    # 4. Run Terraform Plan and save to file
     print(f"\n--- Running terraform plan and saving to {PLAN_FILE} ---")
     run_command(["terraform", "plan", "-out", PLAN_FILE])
 
-    # 6. Run Terraform Apply using the saved plan file (IAM binding and rest of resources)
+    # 5. Run Terraform Apply using the saved plan file (IAM binding and rest of resources)
     print(f"\n--- Running terraform apply using {PLAN_FILE} ---")
     run_command(["terraform", "apply", PLAN_FILE])
 

@@ -68,7 +68,7 @@ def main():
 
     # 4. Run Terraform Destroy
     print("\n--- Running terraform destroy ---")
-    run_command(["terraform", "destroy", "-auto-approve"])
+    run_command(["terraform", "destroy"])
 
     print("\n--- Destruction process completed! ---")
 
