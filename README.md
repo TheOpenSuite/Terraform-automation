@@ -1,5 +1,3 @@
-This guide provides a detailed walkthrough for creating a reusable and automated system to provision new Google Cloud Platform (GCP) projects using Terraform, Python, and YAML.
-
 ## Project Goal
 
 The primary goal is to build a small, working setup that can:
