@@ -66,7 +66,7 @@ def main():
 
     # 4. Run Terraform Apply *only* for the sink resource to create writer_identity
     print("\n--- Applying sink resource first to generate writer_identity ---")
-    run_command(["terraform", "apply", "-target=google_logging_project_sink.sink", "-auto-approve"])
+    run_command(["terraform", "apply", "-target=module.logging_sinks.google_logging_project_sink.sink", "-auto-approve"])
 
     # 5. Run Terraform Plan and save to file (now writer_identity is known)
     print(f"\n--- Running terraform plan and saving to {PLAN_FILE} ---")
