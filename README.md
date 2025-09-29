@@ -91,3 +91,31 @@ To tear down all resources managed by a specific configuration file, use the `de
 # To destroy the project
 python3 scripts/destroy.py configs/example-project.yaml
 ```
+
+## Screenshots:
+### Trial manual run
+<img width="1007" height="281" alt="Screenshot_2025-09-29_16-53-05" src="https://github.com/user-attachments/assets/fbc2b680-5e60-4a9c-be10-0c7c1ab32888" />
+
+
+### Buckets made
+<img width="1866" height="584" alt="Screenshot_2025-09-29_17-18-59" src="https://github.com/user-attachments/assets/d0400353-4e94-4a2d-a63a-4c08b6c502de" />
+
+
+### VPCs
+<img width="1860" height="531" alt="Screenshot_2025-09-29_17-19-11" src="https://github.com/user-attachments/assets/e5b57007-54e3-44a7-bb23-981c3099ccb8" />
+
+
+### APIs
+<img width="499" height="457" alt="Screenshot_2025-09-29_17-19-43" src="https://github.com/user-attachments/assets/e50cb2f1-e827-4d12-9e07-c68aa395a303" />
+
+
+### Made accounts
+<img width="1178" height="101" alt="Screenshot_2025-09-29_17-20-33" src="https://github.com/user-attachments/assets/613da2f0-07da-4ddb-92c3-e0892bbe219e" />
+
+
+### Successful CI/CD run
+<img width="1845" height="862" alt="Screenshot_2025-09-29_17-32-06" src="https://github.com/user-attachments/assets/ab26a601-3ac8-483e-b5c1-42a074e9c1a5" />
+
+
+### Successful Slack notification
+<img width="1082" height="815" alt="Screenshot_2025-09-29_17-48-55" src="https://github.com/user-attachments/assets/d760919e-695b-49f1-ab78-87f8395d2280" />
