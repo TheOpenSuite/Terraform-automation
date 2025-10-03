@@ -1,10 +1,10 @@
 resource "google_sql_database_instance" "instance" {
-  project          = var.project_id
-  name             = "${var.project_id}-db-instance"
-  region           = var.region
-  database_version = "POSTGRES_13"
+  project            = var.project_id
+  name               = "${var.project_id}-db-instance"
+  region             = var.region
+  database_version   = var.database_version 
   settings {
-    tier = "db-g1-small"
+    tier = var.tier
     ip_configuration {
       ipv4_enabled    = true
       private_network = var.network_id
@@ -15,3 +15,5 @@ resource "google_sql_database_instance" "instance" {
   }
   deletion_protection = false # Set to true if in production
 }
+
+

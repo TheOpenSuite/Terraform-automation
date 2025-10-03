@@ -7,6 +7,7 @@ labels:
   environment: "development"
   cost-center: "it-research"
 
+#APIs used
 apis:
   - "compute.googleapis.com"
   - "iam.googleapis.com"
@@ -17,7 +18,20 @@ apis:
   - "monitoring.googleapis.com"
   - "iap.googleapis.com"
 
-# Email address for the IAP consent screen. Must be an admin of the project.
+# Email address for the IAP consent screen.
 iap_support_email: "malakmelkerdawy@gmail.com"
 # Email address to receive alerts from Cloud Monitoring.
-alert_email: "abdulrhmanahmed19@yahoo.com"
+alert_email: "marwanashraf.ce@gmail.com"
+
+# Networking
+network_cidr: "10.10.0.0/24"
+
+# Cloud Run
+cloud_run_image: "us-docker.pkg.dev/cloudrun/container/hello"
+
+# Cloud SQL
+sql_tier: "db-g1-small" sql_database_version: "POSTGRES_13"
+
+# IAM & Secrets
+service_account_id: "app-runner-sa" secret_password: "A-very-secret-password@123"
+

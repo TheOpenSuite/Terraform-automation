@@ -24,48 +24,46 @@ module "project_factory" {
 
 module "network_vpc" {
   source     = "./modules/network-vpc"
-  # FIX 1: Corrected project_factory output reference
   project_id = module.project_factory.project_id
   region     = var.region
+  subnet_cidr = var.network_cidr
   depends_on = [module.project_factory]
 }
 
 module "security_iap_access" {
   source            = "./modules/security-iap-access"
-  # FIX 1: Corrected project_factory output reference
   project_id        = module.project_factory.project_id
   iap_support_email = var.iap_support_email
-  # FIX 2: Corrected network_vpc output reference
   network_name      = module.network_vpc.vpc_self_link 
   depends_on        = [module.network_vpc]
 }
 
 module "iam_service_account" {
   source         = "./modules/iam-service-account"
-  # FIX 1: Corrected project_factory output reference
   project_id     = module.project_factory.project_id
-  account_id     = "app-runner-sa"
+  account_id     = var.service_account_id
   display_name   = "Application Runner Service Account"
   roles = [
     "roles/run.invoker",
-    "roles/storage.objectAdmin"
+    "roles/storage.objectAdmin",
+    # Add Secret Accessor role implicitly here for simplicity
+    "roles/secretmanager.secretAccessor" 
   ]
   depends_on = [module.project_factory]
 }
 
 module "datastore_sql" {
   source     = "./modules/datastore-sql"
-  # FIX 1: Corrected project_factory output reference
   project_id = module.project_factory.project_id
   region     = var.region
-  # FIX 2: Corrected network_vpc output reference
   network_id = module.network_vpc.vpc_id
+  tier             = var.sql_tier
+  database_version = var.sql_database_version
   depends_on = [module.network_vpc]
 }
 
 module "datastore_storage" {
   source      = "./modules/datastore-storage"
-  # FIX 1: Corrected project_factory output reference
   project_id  = module.project_factory.project_id
   bucket_name = "${var.project_id}-app-data"
   location    = var.region
@@ -74,27 +72,24 @@ module "datastore_storage" {
 
 module "application_cloud_run" {
   source         = "./modules/application-cloud-run"
-  # FIX 1: Corrected project_factory output reference
   project_id     = module.project_factory.project_id
   service_name   = "${var.project_id}-hello-service"
   region         = var.region
+  image          = var.cloud_run_image
   depends_on     = [module.project_factory]
 }
 
 module "secrets_manager" {
   source                 = "./modules/secrets-manager"
-  # FIX 1: Corrected project_factory output reference
   project_id             = module.project_factory.project_id
   secret_id              = "database-password"
-  secret_data            = "a-very-secret-password"
-  # FIX 3: Corrected iam_service_account output reference
+  secret_data            = var.secret_password
   service_account_member = "serviceAccount:${module.iam_service_account.service_account_email}"
   depends_on             = [module.iam_service_account]
 }
 
 module "monitoring_alarms" {
   source      = "./modules/monitoring-alarms"
-  # FIX 1: Corrected project_factory output reference
   project_id  = module.project_factory.project_id
   alert_email = var.alert_email
   depends_on  = [module.project_factory]
